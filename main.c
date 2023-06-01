@@ -1,100 +1,90 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#include <time.h>
+#include <string.h>
+#include "espaceetudient.h"
 #include "utileglobal.h"
-#include "utileglobal.h"
+#include "espacelivre.h"
+#include "espaceEmprinte.h"
+#include "etudient.h"
 
-
-void menu(int ch,char **champ,int nmbchamp)
+void passagloging(void);
+void verificationComptadmin(void);
+void espaceAdmin(void);
+int main()
 {
-    int i=0;
 
-   // clrscr();
+passagloging();
 
-    while(i<nmbchamp)
-    {
-        gotoxy(xyglobale.x,xyglobale.y);
-        (xyglobale.y)++;
-        if(ch == i+1)
-        {
-            textbackground(3);
-
-            cprintf("%s",champ[i]);
-            textbackground(0);
-        }
-        else
-        {
-
-            printf("%s",champ[i]);
-        }
-        i++;
-    }
-    xyglobale.x=36;
-    xyglobale.y=12;
+    return 0;
 }
 
 
-int updownmenu(int y,char **tab,int nmb)
-{
-    char ch;
-   // clrscr();
-    menu(1,tab,nmb);
-    while(1)
+void passagloging(void)
+{   int i;
+   char *log[]={"ADMIN","ETUDIENT","EXIT"};
+   clrscr();
+   do{
+        gotoxy(40,9);textcolor(GREEN);
+   cprintf("login tempt que : ");
+    i=updownmenu(1,log,3);
+    switch(i)
     {
-        ch=getch();
-        if(ch==13) break;
-        switch(ch)
-        {
-        case 72:
-            if(y!=1)
-            {
-                (y)--;
-                menu(y,tab,nmb);
-            }
-            break;
-        case 80:
-            if(y!=nmb)
-            {
-                (y)++;
-                menu(y,tab,nmb);
-            }
-            break;
-        default :
-            break;
-        }
+        case 1 :verificationComptadmin();break;
+        case 2 : verificationComptetudient();break;
+        case 3 : exit(1);break;
     }
+
+ }while(1);
+}
+
+
+void espaceAdmin(void)
+{
+    char *champ[]= {"gestion livre","gestion etudiant","Emprinter","exit"};
+    int i;
     clrscr();
-   return y;
+do{
 
+gotoxy(40,5);textcolor(GREEN);cprintf("ADMIN MENU");
+i=updownmenu(1,champ,4);
+switch(i){
+ case 1 :   passagverespacelivre();break;
+ case 2 : passagverespaceetudient();break;
+ case 3 : passagverEmprinte();break;
+ case 4 : exit(1);
+
+}
+}while(1);
 }
 
 
-void dat(char* date)
+
+void verificationComptadmin(void)
 {
-    time_t temp=time(NULL);
-   struct tm *cur_time=localtime(&temp);//localtime(&temp);
 
-   sprintf(date,"%02d/%02d/%d",cur_time->tm_mday,cur_time->tm_mon+1,cur_time->tm_year+1900);
-}
-void dateretoure(char* date,int i)
-{
-     time_t temp=time(NULL);
-   struct tm *cur_time=localtime(&temp);
-      cur_time->tm_mon=cur_time->tm_mon+1;
-      cur_time->tm_year=cur_time->tm_year+1900;
+    char  email[17],motpass[17];
+   gotoxy(40,12); printf("entrer l'email : ");
+   gotoxy(40,13); printf("entrer le mod passe : ");
+     fflush(stdin);
+     gotoxy(57,12);scanf("%s",email);
+    fflush(stdin);
+     gotoxy(62,13);scanf("%s",motpass);
 
 
-   if(cur_time->tm_mday+i>31)
-   {
-        cur_time->tm_mday=cur_time->tm_mday+i-31;
-         cur_time->tm_mon++;
-         if(cur_time->tm_mon>12)
-         {
-             cur_time->tm_mon=cur_time->tm_mon-12;
-         }
+            if(!(strcmp(email,"smis4@gmail.com")&& strcmp(motpass,"123")))
+            {  clrscr();
+               espaceAdmin();
+            }
 
-   }
 
-  sprintf(date,"%02d/%02d/%d",cur_time->tm_mday,cur_time->tm_mon+1,cur_time->tm_year+1900);
+     else
+     {clrscr();
+     gotoxy(48,14);
+     textcolor(RED);
+     cprintf("les donner est incorecte");
+     getch();
+     clrscr();
+         return;
+     }
 }
