@@ -95,6 +95,6 @@ void dateretoure(char* date,int i)
          }
 
    }
-
-  sprintf(date,"%02d/%02d/%d",cur_time->tm_mday,cur_time->tm_mon+1,cur_time->tm_year+1900);
+  else{cur_time->tm_mday=cur_time->tm_mday+i;}
+  sprintf(date,"%02d/%02d/%d",cur_time->tm_mday,cur_time->tm_mon,cur_time->tm_year);
 }
