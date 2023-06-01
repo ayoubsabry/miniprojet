@@ -22,7 +22,7 @@ void incrnmbredelivreutil(char *titre)
     clrscr();
 
     file=fopen("livre.txt","r");
-    tem=fopen("f.txt","a");
+    tem=fopen("a.txt","a");
     {
         if(file==NULL || tem==NULL)
         {
@@ -52,7 +52,7 @@ void incrnmbredelivreutil(char *titre)
         fclose(tem);
     }
     remove("livre.txt");
-    rename("f.txt","livre.txt");
+    rename("a.txt","livre.txt");
      gotoxy(1,1);textcolor(BLUE);cprintf("click pour retourner ");
     getch();
     clrscr();
@@ -73,7 +73,7 @@ void etudientemprint0(char id[])
 
 
     file=fopen("etudient.txt","r");
-    tem=fopen("f.txt","a");
+    tem=fopen("b.txt","a");
     {
         if(file==NULL || tem==NULL)
         {
@@ -103,7 +103,7 @@ void etudientemprint0(char id[])
         fclose(tem);
     }
     remove("etudient.txt");
-    rename("f.txt","etudient.txt");
+    rename("b.txt","etudient.txt");
 
 
      gotoxy(1,1);textcolor(BLUE);cprintf("click pour retourner");
@@ -121,7 +121,7 @@ void emprinter(void)
    fflush(stdin);
    gotoxy(74,13); scanf("%[^\n]",cod);
    file=fopen("demonde.txt","r");
-   temp=fopen("temp.txt","a");
+   temp=fopen("c.txt","a");
    f=fopen("emprinter.txt","a");
    {
        if(file==NULL)
@@ -138,7 +138,7 @@ void emprinter(void)
                  gotoxy(43,14);printf("entrer le nombre de joure : ");
                  gotoxy(72,14);scanf("%d",&nmbday);
                      dateretoure(dateretour,nmbday);
-                      fprintf(f,"%[^,,],,%[^,,],,%[^\n]\n",titre,id,dateretour);
+                      fprintf(f,"%s,,%s,,%s\n",titre,id,dateretour);
                       i=1;
                  continue;
              }
@@ -156,8 +156,8 @@ void emprinter(void)
        fclose(f);
    }
    remove("demonde.txt");
-   rename("temp.txt","demonde.txt");
-
+   rename("c.txt","demonde.txt");
+clrscr();
 }
 
 
@@ -171,7 +171,7 @@ void returner(void)
    fflush(stdin);
    gotoxy(79,13); scanf("%[^\n]",cod);
    file=fopen("emprinter.txt","r");
-   temp=fopen("temp.txt","a");
+   temp=fopen("d.txt","a");
 
        if(file==NULL)
        {
@@ -206,8 +206,8 @@ void returner(void)
 
 
    remove("emprinter.txt");
-   rename("temp.txt","emprinter.txt");
-
+   rename("d.txt","emprinter.txt");
+   clrscr();
  }
 
 
@@ -219,6 +219,7 @@ void listertableau(char *titre,char *id,char *date)
     if(tab.y==4)
     {
         gotoxy(tab.x,tab.y);
+
         cprintf("ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿");//29 55 77 88 98
     }
     else
@@ -314,7 +315,7 @@ void listerEmprinter(void)
         gotoxy(tab.x,tab.y);
         while(!feof(file))
         {
-            fscanf(file,"%[^,,],,%[^,,],,%[^\n]\n",titre,id,date);
+            fscanf(file,"\n%[^,,],,%[^,,],,%[^\n]\n",titre,id,date);
 
             listertableau(titre,id,date);
         }
@@ -337,7 +338,7 @@ void suprimerdelalistedemonde(void)
    gotoxy(66,12); scanf("%[^\n]",id);
 
     file=fopen("demonde.txt","r");
-    temp=fopen("temp.txt","a");
+    temp=fopen("e.txt","a");
     {
         if(file==NULL || temp==NULL)
         {
@@ -366,13 +367,15 @@ void suprimerdelalistedemonde(void)
     gotoxy(46,12);
     textcolor(GREEN);
         cprintf("l'etudient est suprimer de la liste de demande");
+        getch();
     }
 
         fclose(file);
         fclose(temp);
     }
     remove("demonde.txt");
-    rename("temp.txt","demonde.txt");
+    rename("e.txt","demonde.txt");
+    clrscr();
 }
 
 char *champeEmprint[]= {"emprinter un livre a un etudient","lister les demonde","lister EMprinter","suprimer un etudient de la liste de demonde","retour au menu admin","exit"};
