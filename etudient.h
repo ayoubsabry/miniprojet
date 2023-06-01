@@ -7,6 +7,7 @@ const char* ecretudientdansliste="%s,,%s,,%s\n"; //titrelivre  codapo   datedomm
 void verificationComptetudient(void);
 void emprinterlivre(char*);
 void livremprinter(char*);
+void etudientemprint1(char*);
 
 
 #endif // ETUDIENT_H_INCLUDED
